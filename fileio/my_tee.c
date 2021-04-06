@@ -15,7 +15,7 @@ main(int argc, char * argv[])
     int fd, openFlags, numRead;
     char buf[BUF_SIZE + 1];
 
-    if(argc < 3 || strcmp(argv[1], "--help") == 0)
+    if(argc > 3 || argc == 1 || strcmp(argv[1], "--help") == 0)
         usageErr("%s file {-a}\n", argv[0]);
 
     openFlags = O_RDWR | O_CREAT;
