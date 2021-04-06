@@ -13,9 +13,9 @@ all:${TARGET}
 
 copy:${filter-out seek_io.o my_tee.o,${OBJ}}
 	${CC} ${CPPFLAGS} -o $@ $^
-seek_io:${filter-out copy.o my_tee.0,${OBJ}}
+seek_io:${filter-out copy.o my_tee.o,${OBJ}}
 	${CC} ${CPPFLAGS} -o $@ $^
-my_tee:${filter-out copy.o seek_io.0,${OBJ}}
+my_tee:${filter-out copy.o seek_io.o,${OBJ}}
 	${CC} ${CPPFLAGS} -o $@ $^
 clean:
 	rm -rf ${TARGET} ${OBJ}
