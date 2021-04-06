@@ -32,7 +32,7 @@ main(int argc, char * argv[])
         if(write(fd, buf, numRead) != numRead)
             fatal("couldn't write whole buffer");
         buf[numRead] = '\0';
-        printf("%s\n", buffer);
+        printf("%s\n", buf);
     }
 
     if(close(fd) == -1)
