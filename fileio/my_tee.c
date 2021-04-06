@@ -19,7 +19,7 @@ main(int argc, char * argv[])
         usageErr("%s file {-a}\n", argv[0]);
 
     openFlags = O_RDWR | O_CREAT;
-    if(argc == 3 && strcmp(argv[2] == "-a"))
+    if(argc == 3 && strcmp(argv[2], "-a") == 0)
         openFlags |= O_APPEND;
     
     fd = open(argv[1], openFlags,
@@ -31,7 +31,7 @@ main(int argc, char * argv[])
     while((numRead = read(STDIN_FILENO, buf, BUF_SIZE)) > 0) {
         if(write(fd, buf, numRead) != numRead)
             fatal("couldn't write whole buffer");
-        buffer[numRead] = '\0';
+        buf[numRead] = '\0';
         printf("%s\n", buffer);
     }
 
