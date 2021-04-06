@@ -12,7 +12,7 @@
 int
 main(int argc, char * argv[])
 {
-    int fd, openFlags, numReads;
+    int fd, openFlags, numRead;
     char buf[BUF_SIZE + 1];
 
     if(argc < 3 || strcmp(argv[1], "--help") == 0)
