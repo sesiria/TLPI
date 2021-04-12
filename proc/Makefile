@@ -4,9 +4,9 @@ CC=gcc
 AR=ar
 CPPFLAGS = -Wall -std=gnu99 -L ${SRC} -ltlpi -lpthread
 CFLAGS = -I ${INCLUDE}
-TARGET=mem_segments necho
+TARGET=mem_segments necho display_env
 LIB=${SRC}/libtlpi.a
-OBJ=mem_segments.o necho.o
+OBJ=mem_segments.o necho.o display_env.o
 LIBOBJ=${SRC}/error_functions.o ${SRC}/get_num.o
 
 
@@ -23,5 +23,9 @@ mem_segments:mem_segments.o ${LIB}
 
 necho:necho.o ${LIB}
 	${CC}  $^ ${CPPFLAGS} -o $@
+
+display_env:display_env.o ${LIB}
+	${CC}  $^ ${CPPFLAGS} -o $@
+	
 clean:
 	rm -rf ${TARGET} ${OBJ} ${LIB} ${LIBOBJ}
