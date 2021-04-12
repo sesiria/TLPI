@@ -1,23 +1,32 @@
 INCLUDE=../lib
 SRC=../lib
 CC=gcc
-CPPFLAGS = -Wall -std=gnu99
+AR=ar
+CPPFLAGS = -Wall -std=gnu99 -L ${SRC} -ltlpi -lpthread
 CFLAGS = -I ${INCLUDE}
-TARGET=copy seek_io my_tee t_readv
-OBJ=copy.o seek_io.o my_tee.o t_readv.o ${SRC}/error_functions.o ${SRC}/get_num.o
+TARGET=copy seek_io my_tee t_readv large_file
+LIB=${SRC}/libtlpi.a
+OBJ=copy.o seek_io.o my_tee.o t_readv.o large_file.o
+LIBOBJ=${SRC}/error_functions.o ${SRC}/get_num.o
 
-${OBJ}:%.o:%.c
+
+all:${LIB} ${TARGET}
+
+%.o:%.c
 	${CC} -c ${CFLAGS} $< -o $@
 
-all:${TARGET}
+${LIB}:${LIBOBJ}
+	${AR} -rcs $@ $^
 
-copy:${filter-out seek_io.o my_tee.o t_readv.o,${OBJ}}
-	${CC} ${CPPFLAGS} -o $@ $^
-seek_io:${filter-out copy.o my_tee.o t_readv.o,${OBJ}}
-	${CC} ${CPPFLAGS} -o $@ $^
-my_tee:${filter-out copy.o seek_io.o t_readv.o,${OBJ}}
-	${CC} ${CPPFLAGS} -o $@ $^
-t_readv:${filter-out copy.o seek_io.o my_tee.o,${OBJ}}
-	${CC} ${CPPFLAGS} -o $@ $^
+copy:copy.o ${LIB}
+	${CC}  $^ ${CPPFLAGS} -o $@
+seek_io:seek_io.o 
+	${CC}  $^ ${CPPFLAGS} -o $@
+my_tee:my_tee.o ${LIB}
+	${CC}  $^ ${CPPFLAGS} -o $@
+t_readv:t_readv.o ${LIB}
+	${CC}  $^ ${CPPFLAGS} -o $@
+large_file:large_file.o ${LIB}
+	${CC}  $^ ${CPPFLAGS} -o $@
 clean:
-	rm -rf ${TARGET} ${OBJ}
+	rm -rf ${TARGET} ${OBJ} ${LIB} ${LIBOBJ}
