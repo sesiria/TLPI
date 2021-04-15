@@ -24,11 +24,6 @@ ${LIB}:${LIBOBJ}
 
 ${LIB1}:${LIBOBJ1}
 	${AR} -rcs $@ $^
-#${LIBSRC}/libtlpi.a:../lib/error_functions.o ../lib/get_num.o
-#	${AR} -rcs $@ $^
-
-#${LIBSRC1}/libugid.a:./users_groups/ugid_functions.o
-#	${AR} -rcs $@ $^
 
 idshow:idshow.o ${LIB} ${LIB1}
 	${CC}  $^ ${CPPFLAGS} -o $@
