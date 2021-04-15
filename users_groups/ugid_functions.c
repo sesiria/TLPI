@@ -4,7 +4,7 @@
 #include "ugid_functions.h"     /* Declares functions defined here */
 
 char *                          /* Return name corresponding to 'uid', or NULL on error */
-userNameFromId(uit_t uid)
+userNameFromId(uid_t uid)
 {
     struct passwd *pwd;
     pwd = getpwuid(uid);
@@ -29,7 +29,7 @@ userIdFromName(const char * name)
     if(pwd == NULL)
         return -1;
     
-    return pwd->pwd_uid;
+    return pwd->pw_uid;
 }
 
 char*                           /* Return anme corresponding to 'gid', or NULL on error */
@@ -48,7 +48,7 @@ groupIdFromName(const char *name)
     gid_t g;
     char *endptr;
 
-    if(name == NULL || *name ='\0')     /* On NULL or empty string */
+    if(name == NULL || *name =='\0')     /* On NULL or empty string */
         return -1;
     
     g = strtol(name, &endptr, 10);
