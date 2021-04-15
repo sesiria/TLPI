@@ -4,7 +4,7 @@ LIBSRC=../lib
 LIBSRC1=../users_groups
 CC=gcc
 AR=ar
-CPPFLAGS = -Wall -std=gnu99 -L ${LIBSRC} -L ${LIBSRC1}-ltlpi -lcrypt
+CPPFLAGS = -Wall -std=gnu99 -L ${LIBSRC} -L ${LIBSRC1} -ltlpi -lugid
 CFLAGS = -I ${INCLUDE} -I ${INCLUDE1}
 TARGET=idshow
 OBJ=idwhow.o
@@ -25,8 +25,9 @@ ${LIB}:${LIBOBJ}
 ${LIB1}:${LIBOBJ1}
 	${AR} -rcs $@ $^
 
+
 idshow:idshow.o ${LIB} ${LIB1}
-	${CC}  $^ ${CPPFLAGS} -o $@
+	${CC} idshow.o ${CPPFLAGS} -o $@
 
 clean:
-	rm -rf ${TARGET} ${OBJ} ${LIB} ${LIBOBJ}
+	rm -rf ${TARGET} ${OBJ} ${LIB} ${LIB1} ${LIBOBJ} ${LIBOBJ1}
