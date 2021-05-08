@@ -4,8 +4,8 @@ CC=gcc
 AR=ar
 CPPFLAGS = -Wall -std=gnu99 -L ${LIBSRC} -ltlpi
 CFLAGS = -I ${INCLUDE}
-TARGET=ouch intquit t_kill sig_sender sig_receiver nonreentrant sigmask_longjmp sigmask_siglongjmp t_sigaltstack
-OBJ=ouch.o intquit.o t_kill.o sig_sender.o sig_receiver.o signal_functions.o nonreentrant.o sigmask_longjmp.o sigmask_siglongjmp.o t_sigaltstack.o
+TARGET=ouch intquit t_kill sig_sender sig_receiver nonreentrant sigmask_longjmp sigmask_siglongjmp t_sigaltstack t_sigqueue catch_rtsigs t_sigsuspend t_sigwaitinfo signalfd_sigval
+OBJ=ouch.o intquit.o t_kill.o sig_sender.o sig_receiver.o signal_functions.o nonreentrant.o sigmask_longjmp.o sigmask_siglongjmp.o t_sigaltstack.o t_sigqueue.o catch_rtsigs.o t_sigsuspend.o t_sigwaitinfo.o signalfd_sigval.o
 LIB=${LIBSRC}/libtlpi.a
 LIBOBJ=${LIBSRC}/error_functions.o ${LIBSRC}/get_num.o
 
@@ -46,6 +46,21 @@ sigmask_siglongjmp:sigmask_siglongjmp.o signal_functions.o ${LIB}
 
 t_sigaltstack:t_sigaltstack.o ${LIB}
 	${CC} t_sigaltstack.o ${CPPFLAGS} -o $@
+
+t_sigqueue:t_sigqueue.o ${LIB}
+	${CC} t_sigqueue.o ${CPPFLAGS} -o $@
+
+catch_rtsigs:catch_rtsigs.o ${LIB}
+	${CC} catch_rtsigs.o ${CPPFLAGS} -o $@
+
+t_sigsuspend:t_sigsuspend.o signal_functions.o ${LIB}
+	${CC} t_sigsuspend.o signal_functions.o ${CPPFLAGS} -o $@
+
+t_sigwaitinfo:t_sigwaitinfo.o ${LIB}
+	${CC} t_sigwaitinfo.o ${CPPFLAGS} -o $@
+
+signalfd_sigval:signalfd_sigval.o ${LIB}
+	${CC} signalfd_sigval.o ${CPPFLAGS} -o $@
 
 clean:
 	rm -rf ${TARGET} ${OBJ} ${LIB} ${LIBOBJ}
