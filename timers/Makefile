@@ -7,8 +7,8 @@ AR=ar
 CPPFLAGS = -Wall -std=gnu99 -L ${LIBSRC} -ltlpi
 CPPFLAGS1 = -Wall -std=gnu99 -L ${LIBSRC} -L ${LIBSRC1} -ltlpi -lcurr_time -lrt
 CFLAGS = -I ${INCLUDE} -I ${INCLUDE1}
-TARGET=real_timer timed_read t_nanosleep ptmr_sigev_signal ptmr_sigev_thread
-OBJ=real_timer.o timed_read.o t_nanosleep.o ptmr_sigev_signal.o itimerspec_from_str.o ptmr_sigev_thread.o
+TARGET=real_timer timed_read t_nanosleep ptmr_sigev_signal ptmr_sigev_thread demo_timerfd
+OBJ=real_timer.o timed_read.o t_nanosleep.o ptmr_sigev_signal.o itimerspec_from_str.o ptmr_sigev_thread.o demo_timerfd.o
 LIB=${LIBSRC}/libtlpi.a
 LIB1=${LIBSRC1}/libcurr_time.a
 LIBOBJ=${LIBSRC}/error_functions.o ${LIBSRC}/get_num.o
@@ -39,6 +39,9 @@ ptmr_sigev_signal:ptmr_sigev_signal.o itimerspec_from_str.o ${LIB} ${LIB1}
 
 ptmr_sigev_thread:ptmr_sigev_thread.o itimerspec_from_str.o ${LIB} ${LIB1}
 	${CC} ptmr_sigev_thread.o itimerspec_from_str.o ${CPPFLAGS1} -o $@
+
+demo_timerfd:demo_timerfd.o itimerspec_from_str.o ${LIB}
+	${CC} demo_timerfd.o itimerspec_from_str.o ${CPPFLAGS} -lrt -o $@
 
 clean:
 	rm -rf ${TARGET} ${OBJ} ${LIB} ${LIB1} ${LIBOBJ} ${LIBOBJ1}
