@@ -14,7 +14,7 @@ LIB1=${LIBSRC1}/libcurr_time.a
 LIBOBJ=${LIBSRC}/error_functions.o ${LIBSRC}/get_num.o
 LIBOBJ1=${LIBSRC1}/curr_time.o 
 
-all:${LIB} ${TARGET}
+all:${LIB} ${LIB1} ${TARGET}
 
 %.o:%.c
 	${CC} -c ${CFLAGS} $< -o $@
