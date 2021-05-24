@@ -8,9 +8,9 @@ CPPFLAGS = -Wall -std=gnu99 -L ${LIBSRC} -ltlpi
 CPPFLAGS1 = -Wall -std=gnu99 -L ${LIBSRC} -L ${LIBSRC1} -ltlpi -lcurr_time
 CFLAGS = -I ${INCLUDE} -I ${INCLUDE1}
 TARGET=t_fork fork_file_sharing footprint t_vfork fork_whos_on_first fork_sig_sync exit_handlers fork_stdio_buf multi_wait child_status make_zombie \
-		multi_SIGCHLD
+		multi_SIGCHLD t_execve envargs t_execlp t_execle t_execl closeonexec t_system
 OBJ=t_fork.o fork_file_sharing.o footprint.o t_vfork.o fork_whos_on_first.o fork_sig_sync.o exit_handlers.o fork_stdio_buf.o multi_wait.o child_status.o print_wait_status.o make_zombie.o \
-		multi_SIGCHLD.o
+		multi_SIGCHLD.o t_execve.o envargs.o t_execlp.o t_execle.o t_execl.o closeonexec.o t_system.o
 LIB=${LIBSRC}/libtlpi.a
 LIB1=${LIBSRC1}/libcurr_time.a
 LIBOBJ=${LIBSRC}/error_functions.o ${LIBSRC}/get_num.o
@@ -62,6 +62,27 @@ make_zombie:make_zombie.o ${LIB}
 
 multi_SIGCHLD:multi_SIGCHLD.o print_wait_status.o ${LIB}
 	${CC} multi_SIGCHLD.o print_wait_status.o ${CPPFLAGS1} -o $@
+
+t_execve:t_execve.o ${LIB}
+	${CC} t_execve.o ${CPPFLAGS} -o $@
+
+envargs:envargs.o ${LIB}
+	${CC} envargs.o ${CPPFLAGS} -o $@
+
+t_execlp:t_execlp.o ${LIB}
+	${CC} t_execlp.o ${CPPFLAGS} -o $@
+
+t_execle:t_execle.o ${LIB}
+	${CC} t_execle.o ${CPPFLAGS} -o $@
+
+t_execl:t_execl.o ${LIB}
+	${CC} t_execl.o ${CPPFLAGS} -o $@
+
+closeonexec:closeonexec.o ${LIB}
+	${CC} closeonexec.o ${CPPFLAGS} -o $@
+
+t_system:t_system.o print_wait_status.o ${LIB}
+	${CC} t_system.o print_wait_status.o ${CPPFLAGS1} -o $@
 
 clean:
 	rm -rf ${TARGET} ${OBJ} ${LIB} ${LIBOBJ}
