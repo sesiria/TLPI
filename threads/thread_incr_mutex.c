@@ -36,4 +36,8 @@ int main(int argc, char * argv[])
     s = pthread_create(&t2, NULL, threadFunc, &loops);
     if(s != 0)
         errExitEN(s, "pthread_create");
+    
+    s = pthread_join(t1, NULL);
+    if(s != 0)
+        errExitEN(s, )
 }
